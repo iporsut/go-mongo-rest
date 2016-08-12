@@ -25,7 +25,7 @@ func TestHomeHandler(t *testing.T) {
 	assert.Equal(t, `{"message":"Hello"}`, res.Body.String())
 }
 
-func TestGetAllHandler(t *testing.T) {
+func TestNotesHandler(t *testing.T) {
 	mockDb := MockDb{}
 	notesHandle := NotesHandler(mockDb)
 	req, _ := http.NewRequest("GET", "/api/v1/notes", nil)
