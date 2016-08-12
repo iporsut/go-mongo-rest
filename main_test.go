@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestHomeHandler(t *testing.T) {
@@ -12,16 +14,7 @@ func TestHomeHandler(t *testing.T) {
 
 	HomeHandler(res, req)
 
-	if res.Code != 200 {
-		t.Errorf("Expected: 200, Actual: %d", res.Code)
-	}
-
-	if res.Header().Get("Content-Type") != "application/json" {
-		t.Errorf("Expected: application/json, Actual: %s", res.Header().Get("Content-Type"))
-	}
-
-	expected := `{"message":"Hello"}`
-	if res.Body.String() != expected {
-		t.Errorf(`Expected: %s, Actual: %s`, expected, res.Body)
-	}
+	assert.Equal(t, "application/json", res.Header().Get("Content-Type"))
+	assert.Equal(t, 200, res.Code)
+	assert.Equal(t, `{"message":"Hello"}`, res.Body.String())
 }
